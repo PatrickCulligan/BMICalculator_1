@@ -30,11 +30,10 @@ namespace BMICalculator
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddRazorPages(); // Use AddRazorPages to register Razor Pages service
-
-            // Set landing page
+            // Register Razor Pages and configure route conventions
             services.AddRazorPages().AddRazorPagesOptions(options =>
             {
+                // Set the landing page to be the BMI page
                 options.Conventions.AddPageRoute("/bmi", "");
             });
         }
@@ -56,15 +55,18 @@ namespace BMICalculator
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseRouting(); // This line is important to enable routing
+            // Add UseRouting middleware to enable endpoint routing
+            app.UseRouting();
 
             // Add Authentication/Authorization Middleware if applicable
-            // app.UseAuthentication(); // Uncomment if you have authentication configured
-            // app.UseAuthorization(); // Uncomment if you have authorization policies
+            // Uncomment if you have authentication configured in your app
+            // app.UseAuthentication();
+            // app.UseAuthorization();
 
+            // Define endpoint mapping
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages(); // Use this if you're using Razor Pages
+                endpoints.MapRazorPages(); // Maps Razor Pages to handle requests
             });
         }
     }
